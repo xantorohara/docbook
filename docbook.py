@@ -1,12 +1,13 @@
 import os
+import re
 
 import markdown
 import argparse
 
 
-def load_template(filename):
-    print('Loading template: %s' % filename)
-    with open(filename, 'r') as file:
+def load_file_utf8(filename):
+    print('Loading file: %s' % filename)
+    with open(filename, 'r', encoding='utf-8') as file:
         return file.read()
 
 
@@ -17,22 +18,28 @@ def render_template(template, props):
     return template
 
 
-def load_doc(filename):
-    print('Loading doc: %s' % filename)
+def load_doc(doc_dir):
+    print('Loading doc: ' + doc_dir)
+    doc_text = load_file_utf8(doc_dir + '/doc.md')
 
-    with open(filename, 'r') as file:
-        text = file.read()
-        return markdown.markdown(text, extensions=[
-            'markdown.extensions.tables',
-            'markdown.extensions.attr_list',
-            'markdown.extensions.fenced_code'
-        ])
+    file_includes = re.findall('\$F\{([-.\w]+)\}', doc_text)
+    if file_includes:
+        for file_include in file_includes:
+            print('Loading include: ' + file_include)
+            include_text = load_file_utf8(doc_dir + '/' + file_include)
+            doc_text = doc_text.replace('$F{%s}' % file_include, include_text)
+
+    return markdown.markdown(doc_text, extensions=[
+        'markdown.extensions.tables',
+        'markdown.extensions.attr_list',
+        'markdown.extensions.fenced_code'
+    ])
 
 
-def load_props(filename):
-    print('Loading properties: %s' % filename)
+def load_props(props_file):
+    print('Loading properties: %s' % props_file)
     props = {}
-    with open(filename, 'r') as f:
+    with open(props_file, 'r', encoding='utf-8') as f:
         for line in f:
             line = line.strip()
 
@@ -52,7 +59,7 @@ def merge_props(props, props_override):
 def write_doc_html(filename, content):
     print('Writing doc: %s' % filename)
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w') as file:
+    with open(filename, 'w', encoding='utf-8') as file:
         file.write(content)
 
 
@@ -80,14 +87,15 @@ if __name__ == '__main__':
     else:
         print('No docs specified')
 
-    global_template = load_template(src_dir + '/docbook-template.html')
+    global_template = load_file_utf8(src_dir + '/docbook-template.html')
     global_props = load_props(src_dir + '/docbook.properties')
 
     for doc in docs:
-        doc_content = load_doc('%s/%s/doc.md' % (src_dir, doc))
+        doc_text = load_doc('%s/%s' % (src_dir, doc))
+
         doc_props = load_props('%s/%s/doc.properties' % (src_dir, doc))
         doc_props = merge_props(global_props, doc_props)
-        doc_props['body'] = doc_content
+        doc_props['body'] = doc_text
 
         doc_html = render_template(global_template, doc_props)
 

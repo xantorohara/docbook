@@ -3,5 +3,5 @@
 from distutils.core import setup
 
 setup(name='DocBook',
-      py_modules=['docbook'],
-     )
+      py_modules=['docbook'], requires=['markdown']
+      )
