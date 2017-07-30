@@ -64,26 +64,34 @@ def write_doc_html(filename, content):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='Generate html book from Markdown files',
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+
     parser.add_argument('--src', help='Source docs directory', required=True)
     parser.add_argument('--out', help='Output docs directory', required=True)
+
+    parser.add_argument('--site', help='Site name')
+    parser.add_argument('--sitemap', help='Generate sitemap', action='store_true')
 
     group = parser.add_mutually_exclusive_group()
     group.add_argument('--docs', help='Generate selected docs', nargs='+')
     group.add_argument('--all', help='Generate all docs', action='store_true')
 
+    parser.epilog = '''Usage sample:
+python docbook.py --src . --out .. --all --sitemap --site https://orange-pi.github.io
+python -m docbook --src . --out .. --all --sitemap --site https://orange-pi.github.io
+'''
     args = parser.parse_args()
 
     src_dir = args.src
     out_dir = args.out
 
     docs = []
+    all_docs = [d for d in os.listdir(src_dir) if os.path.isdir(src_dir + '/' + d)]
     if args.docs:
         docs = args.docs
     elif args.all:
-        print(os.listdir(src_dir))
-        docs = [d for d in os.listdir(src_dir) if os.path.isdir(src_dir + '/' + d)]
-        print(docs)
+        docs = all_docs
     else:
         print('No docs specified')
 
@@ -104,3 +112,13 @@ if __name__ == '__main__':
         else:
             outdir = '%s/%s/index.html' % (out_dir, doc)
         write_doc_html(outdir, doc_html)
+
+    if args.site and args.sitemap:
+        print('Generating sitemap')
+
+        with open(out_dir + '/sitemap.txt', 'w', encoding='utf-8') as file:
+            for doc in docs:
+                if doc == 'index':
+                    file.write('%s/\n' % args.site)
+                else:
+                    file.write('%s/%s/\n' % (args.site, doc))
