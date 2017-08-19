@@ -1,0 +1,1 @@
+python -m docbook --src=source/page-*.md --out=output/{1}.html
