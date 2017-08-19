@@ -130,13 +130,13 @@ class Docbook:
         return out
 
     def load_doc(self, doc_dir, doc_file):
-        # print('Loading doc: %s/%s' % (doc_dir, doc_file))
+        doc_dir = doc_dir if doc_dir else '.'
         doc_text = self.load_file_as_string(doc_dir + '/' + doc_file)
 
-        file_includes = re.findall('\$F\{([-.\w]+)\}', doc_text)
+        file_includes = re.findall('\$F\{([-.\w\/\\\\]+)\}', doc_text)
         if file_includes:
             for file_include in file_includes:
-                # print('Loading include: ' + file_include)
+                print('Loading include: ' + file_include)
                 include_text = self.load_file_as_string(doc_dir + '/' + file_include)
                 doc_text = doc_text.replace('$F{%s}' % file_include, include_text)
 
@@ -158,7 +158,9 @@ class Docbook:
             print('Trying to overwrite just modified file')
             raise Exception()
 
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+        tmp_dir = os.path.dirname(path)
+        tmp_dir = tmp_dir if tmp_dir else '.'
+        os.makedirs(tmp_dir, exist_ok=True)
         with open(path, 'w', encoding=self.out_encoding) as file:
             file.write(content)
 
@@ -169,6 +171,7 @@ class Docbook:
             print('%s -> %s' % (source_path, output_path))
 
             src_dir = os.path.dirname(source_path)
+            src_dir = src_dir if src_dir else '.'
             src_filename = os.path.basename(source_path)
 
             doc_text = self.load_doc(src_dir, src_filename)

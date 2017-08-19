@@ -3,7 +3,7 @@ Generate html book or static site from Markdown files
 
 ## Use-cases:
 - Generate a single html from a .md file
-- Scan files using glob pattern and generate multiple output files     
+- Scan files using glob pattern and generate multiple output files
 
 
 ## Command line parameters
@@ -40,7 +40,7 @@ python -m docbook --src=source/page-*.md --out=output/{1}.html
 - from "articles/\*/doc.md" to "public/\*/index.html"
 ```--src=articles/*/doc.md --out=public/{1}/index.html```
 
-- from "articles/\*/\*.md" to "public/\*-\*.html" (planned)
+- from "articles/\*/\*.md" to "public/\*-\*.html"
 ```--src=articles/*/*.md --out=public/{1}-{2}.html```
  
 ## Sites using DocBook
