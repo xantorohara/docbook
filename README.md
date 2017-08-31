@@ -46,4 +46,4 @@ python -m docbook --src=source/page-*.md --out=output/{1}.html
 ## Sites using DocBook
 - [Orange-Pi tips and tricks](https://orange-pi.github.io/)
 - [Spring Field](https://xantorohara.github.io/spring-field/)
-- [Spotfire internals](https://xantorohara.github.io/spotfire-internals/)
+- [Spotfire Internals](https://xantorohara.github.io/spotfire-internals/)
