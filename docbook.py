@@ -113,12 +113,12 @@ class Docbook:
         if not properties_file or not os.path.isfile(properties_file):
             return props
 
-        # print('Loading prperties: ' + properties_file)
+        # print('Loading properties: ' + properties_file)
 
         with open(properties_file, 'r', encoding=self.src_encoding) as f:
             for line in f:
                 line = line.strip()
-                if '=' not in line or line.startswith('#'):
+                if '=' not in line or line.startswith("#"):
                     continue
                 k, v = line.split("=", 1)
                 props[k] = v
