@@ -33,8 +33,8 @@ properties = load_properties(properties_file)
 
 src_translate_pattern = parse_pattern(src_path_pattern)
 
-singlepage_item_template = load_file_as_string(args.singlepage_item_template)
-singlepage_list_template = load_file_as_string(args.singlepage_list_template)
+singlepage_item_template = load_file_as_string(args.item_template)
+singlepage_list_template = load_file_as_string(args.list_template)
 
 print('Processing')
 sources = list_files(src_path_pattern, src_exclude)
