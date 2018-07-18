@@ -1,8 +1,6 @@
 import argparse
-import os
 
-from docbook import load_properties, parse_pattern, load_file_as_string, list_files, translate_file_path, load_doc, \
-    merge_properties, render_template, write_file
+from docbook.docbook import *
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter)
 

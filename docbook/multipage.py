@@ -1,8 +1,6 @@
 import argparse
-import os
 
-from docbook import load_file_as_string, load_properties, parse_pattern, list_files, translate_file_path, load_doc, \
-    merge_properties, render_template, write_file
+from docbook.docbook import *
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter)
 
@@ -27,13 +25,11 @@ src_exclude = args.exclude
 template_file = args.tpl
 properties_file = args.props
 
-
 template = load_file_as_string(template_file)
 
 properties = load_properties(properties_file)
 
 src_translate_pattern = parse_pattern(src_path_pattern)
-
 
 print('Processing')
 sources = list_files(src_path_pattern, src_exclude)

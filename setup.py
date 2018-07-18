@@ -9,6 +9,5 @@ setup(
     author='Xantorohara',
     author_email='xantorohara@gmail.com',
     url='https://github.com/xantorohara/docbook',
-    packages=[],
-    py_modules=['docbook-singlepage', 'docbook-multipage'], requires=['markdown']
+    packages=['docbook'], requires=['markdown']
 )

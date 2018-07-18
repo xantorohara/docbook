@@ -1,5 +1,5 @@
 import unittest
-import docbook
+from docbook import docbook
 
 
 class Tests(unittest.TestCase):
@@ -46,7 +46,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(out_file, 'out/abc-abc.html')
 
     def test_load_file_as_string(self):
-        file_content = docbook.load_file_as_string('LICENSE', 'utf-8')
+        file_content = docbook.load_file_as_string('LICENSE')
         self.assertIn('THE SOFTWARE IS PROVIDED "AS IS"', file_content)
 
 
