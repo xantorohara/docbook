@@ -44,6 +44,6 @@ python -m docbook --src=source/page-*.md --out=output/{1}.html
 ```--src=articles/*/*.md --out=public/{1}-{2}.html```
  
 ## Sites using DocBook
-- [HowTo Linux](https://xantorohara.github.io/howto-linux/)
-- [HowTo Spring](https://xantorohara.github.io/howto-spring/)
-- [HowTo Spotfire](https://xantorohara.github.io/howto-spotfire/)
+- [Linux notes](https://xantorohara.github.io/linux-notes/)
+- [Docker notes](https://xantorohara.github.io/docker-notes/)
+- [Spring notes](https://xantorohara.github.io/spring-notes/)

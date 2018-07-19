@@ -6,21 +6,19 @@ parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpForm
 
 parser.description = 'Generate single html page from multiple Markdown files'
 
-parser.add_argument('--src', help='Source files (source filename or glob pattern)',
-                    required=True)
-parser.add_argument('--out', help='Output filen',
-                    required=True)
+parser.add_argument('--src', help='Source file (or glob pattern)', required=True)
+parser.add_argument('--out', help='Output file', required=True)
 
-parser.add_argument('--exclude', help='Subset of source files to exclude')
+parser.add_argument('--exclude', help='Source files to exclude')
 parser.add_argument('--props', help='Properties file. Default: "docbook.properties"',
                     default='docbook.properties')
 
-parser.add_argument('--item-tpl', help='Output template for the item',
-                    default='docbook-item.html',
-                    dest='item_template')
-parser.add_argument('--list-tpl', help='Output template for the list',
-                    default='docbook-list.html',
-                    dest='list_template')
+parser.add_argument('--item-tpl', help='Output template for the item', dest='item_template',
+                    default='docbook-item.html')
+parser.add_argument('--list-tpl', help='Output template for the list', dest='list_template',
+                    default='docbook-list.html')
+
+parser.add_argument('--reverse', help='Reverse files order')
 
 args = parser.parse_args()
 
@@ -31,13 +29,11 @@ properties_file = args.props
 
 properties = load_properties(properties_file)
 
-src_translate_pattern = parse_pattern(src_path_pattern)
-
 singlepage_item_template = load_file_as_string(args.item_template)
 singlepage_list_template = load_file_as_string(args.list_template)
 
 print('Processing')
-sources = list_files(src_path_pattern, src_exclude)
+sources = list_files(src_path_pattern, src_exclude, reverse=args.reverse)
 
 singlepage_list = []
 for source_path in sources:

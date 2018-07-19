@@ -7,7 +7,7 @@ import time
 import markdown
 
 
-def list_files(includes, excludes):
+def list_files(includes, excludes, reverse=False):
     """
     :return: List of filenames matching the includes pattern minus excludes pattern
     """
@@ -22,7 +22,7 @@ def list_files(includes, excludes):
     if exclude_paths:
         paths = [path for path in paths if path not in exclude_paths]
 
-    return paths
+    return paths.sort(reverse=reverse)
 
 
 def parse_pattern(path_pattern):

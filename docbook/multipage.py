@@ -6,15 +6,14 @@ parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpForm
 
 parser.description = 'Generate html pages from Markdown files'
 
-parser.add_argument('--src', help='Source files (source filename or glob pattern)',
-                    required=True)
-parser.add_argument('--out', help='Output files (output filename or filename template with {n}-placeholders)',
+parser.add_argument('--src', help='Source file (or glob pattern)', required=True)
+parser.add_argument('--out', help='Output file (or filename template with {n}-placeholders)',
                     required=True)
 
 parser.add_argument('--exclude', help='Subset of source files to exclude')
-parser.add_argument('--tpl', help='Output template file. Default: docbook-template.html',
-                    default='docbook-template.html')
-parser.add_argument('--props', help='Properties file. Default: "docbook.properties"',
+parser.add_argument('--tpl', help='Output template file. Default: docbook.html',
+                    default='docbook.html')
+parser.add_argument('--props', help='Properties file. Default: docbook.properties',
                     default='docbook.properties')
 
 args = parser.parse_args()
