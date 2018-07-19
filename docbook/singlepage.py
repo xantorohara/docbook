@@ -10,7 +10,7 @@ parser.add_argument('--src', help='Source file (or glob pattern)', required=True
 parser.add_argument('--out', help='Output file', required=True)
 
 parser.add_argument('--exclude', help='Source files to exclude')
-parser.add_argument('--props', help='Properties file. Default: "docbook.properties"',
+parser.add_argument('--props', help='Properties file. Default: docbook.properties',
                     default='docbook.properties')
 
 parser.add_argument('--item-tpl', help='Output template for the item', dest='item_template',
@@ -18,7 +18,8 @@ parser.add_argument('--item-tpl', help='Output template for the item', dest='ite
 parser.add_argument('--list-tpl', help='Output template for the list', dest='list_template',
                     default='docbook-list.html')
 
-parser.add_argument('--reverse', help='Reverse files order')
+parser.add_argument('--reverse', help='Reverse files order',
+                    action='store_true')
 
 args = parser.parse_args()
 

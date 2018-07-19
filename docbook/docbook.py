@@ -22,7 +22,11 @@ def list_files(includes, excludes, reverse=False):
     if exclude_paths:
         paths = [path for path in paths if path not in exclude_paths]
 
-    return paths.sort(reverse=reverse)
+    if reverse:
+        paths.sort(reverse=True)
+    else:
+        paths.sort()
+    return paths
 
 
 def parse_pattern(path_pattern):
