@@ -43,7 +43,3 @@ python -m docbook --src=source/page-*.md --out=output/{1}.html
 - from "articles/\*/\*.md" to "public/\*-\*.html"
 ```--src=articles/*/*.md --out=public/{1}-{2}.html```
  
-## Sites using DocBook
-- [Linux notes](https://xantorohara.github.io/linux-notes/)
-- [Docker notes](https://xantorohara.github.io/docker-notes/)
-- [Spring notes](https://xantorohara.github.io/spring-notes/)
